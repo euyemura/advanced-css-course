@@ -108,6 +108,18 @@ body {
     transform: translate(0)
   }
 }
+@keyframes moveInButton {
+  0% {
+    opacity: 0;
+    /* at the start we want our element to be invisible, and remember, that these keyframes basically are saying what styles will an element have at certain points during the animation duration. */
+    transform: translateY(60px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
 
 @keyframes comeTogether {
   0% {
@@ -126,6 +138,7 @@ body {
   display: inline-block;
   border-radius: 100px;
   transition: all .2s;
+  position: relative;
 }
 
 .btn:hover {
@@ -141,4 +154,32 @@ body {
 .btn-white {
   background-color: #fff;
   color: #777;
+}
+
+.btn::after {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute; /* its parent will actulaly be the real button */
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+}
+/* we want a duplicate button basically, so you put another btn white to get the same color as well. */
+.btn-white::after {
+  background-color: white;
+}
+
+.btn:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+}
+
+.btn-animated {
+  animation: moveInButton .8s ease-out .5s;
+  animation-fill-mode: backwards;
+  /*  the properties at 0 percent will be started with. */
 }
